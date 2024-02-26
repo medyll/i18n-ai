@@ -1,8 +1,11 @@
 {
-  "name": "i18n-ai",
-  "private": true,
+  "name": "@medyll/i18n-ai",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "bin": {
+    "@medyll/i18n-ai": "./dist/index.js"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,6 +13,17 @@
     "prepare": "husky install",
     "commit": "scripts/commit.js",
     "release": "standard-version"
+  },
+  "repository": {
+    "name": "@medyll/i18n-ai",
+    "type": "git",
+    "url": "git+https://github.com/medyll/i18n-ai.git"
+  },
+  "author": "Lebrun Meddy",
+  "license": "MIT",
+  "homepage": "https://github.com/medyll/i18n-ai#readme",
+  "bugs": {
+    "url": "https://github.com/medyll/i18n-ai/issues"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7",
