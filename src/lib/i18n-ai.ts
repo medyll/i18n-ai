@@ -1,7 +1,6 @@
 #!/usr/bin/env  node
 import inquirer, { type Answers, type QuestionAnswer } from 'inquirer';
 import fs from 'fs-extra';
-import Choices from 'inquirer/lib/objects/choices.js';
 
 const jsConfigFile = 'i18n-ai.config.js';
 const extensions: Record<string, any> = {
@@ -24,8 +23,6 @@ const questions = [
 			'Portuguese',
 			'Russian',
 			'Chinese',
-			'Japanese',
-			'Korean',
 			'Romanian',
 			'Russian',
 			'Turkish',
@@ -117,7 +114,7 @@ async function i18nAi() {
 					const size = await fs.stat(lfile);
 					if (size.size === 0) {
 						const asConst = extension === 'json' ? 'as const' : '';
-						const content = `export ${isoName} =  {};`;
+						const content = `export const ${isoName} =  {};`;
 
 						fs.writeFile(lfile, `${content} ${asConst};`);
 					}

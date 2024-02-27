@@ -64,7 +64,7 @@
 		"fs-extra": "^11.2.0",
 		"inquirer": "^9.2.15",
 		"nodemon": "^3.1.0",
-		"ollama-node": "^0.1.27",
+		"ollama": "^0.4.8",
 		"standard-version": "^9.5.0"
 	}
 }
