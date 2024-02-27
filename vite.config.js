@@ -1,13 +1,9 @@
-// vite.config.js
-import { defineConfig } from 'vite';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  build: {
-    lib: {
-      entry: './src/main.ts', // Remplacez par le chemin de votre point d'entrée
-      name: '@medyll/i18n-ai', // Nom de votre librairie
-    },
-    rollupOptions: {
-    },
-  },
+	plugins: [sveltekit()],
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	}
 });

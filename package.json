@@ -1,41 +1,69 @@
 {
-  "name": "@medyll/i18n-ai",
-  "private": false,
-  "version": "0.0.0",
-  "type": "module",
-  "bin": {
-    "@medyll/i18n-ai": "./dist/index.js"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && tsc build",
-    "preview": "vite preview",
-    "prepare": "husky install",
-    "commit": "scripts/commit.js",
-    "release": "standard-version"
-  },
-  "repository": {
-    "name": "@medyll/i18n-ai",
-    "type": "git",
-    "url": "git+https://github.com/medyll/i18n-ai.git"
-  },
-  "author": "Lebrun Meddy",
-  "license": "MIT",
-  "homepage": "https://github.com/medyll/i18n-ai#readme",
-  "bugs": {
-    "url": "https://github.com/medyll/i18n-ai/issues"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^9.0.7",
-    "cz-customizable": "^7.0.0",
-    "husky": "^8.0.0",
-    "inquirer": "^9.2.15",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.4"
-  },
-  "dependencies": {
-    "fs-extra": "^11.2.0"
-  }
+	"name": "@medyll/i18n-ai",
+	"version": "0.0.1",
+	"main": "./dist/index.js",
+	"description": "i18n tool using ai : translate your project lang files with ai",
+	"bin": {
+		"@medyll/i18n-ai": "./dist/index.js"
+	},
+	"scope": "@medyll",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build && npm run package",
+		"preview": "vite preview",
+		"package": "svelte-kit sync && svelte-package && publint",
+		"prepublishOnly": "npm run package",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test": "vitest",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"prepare": "husky install",
+		"commit": "node scripts/commit.js",
+		"release": "standard-version"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/package": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@types/eslint": "^8.56.0",
+		"@types/fs-extra": "^11.0.4",
+		"@types/inquirer": "^9.0.7",
+		"@typescript-eslint/eslint-plugin": "^7.0.0",
+		"@typescript-eslint/parser": "^7.0.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.35.1",
+		"husky": "^8.0.0",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"publint": "^0.1.9",
+		"svelte": "^4.2.7",
+		"svelte-check": "^3.6.0",
+		"ts-node": "^10.9.2",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"vite": "^5.0.11",
+		"vitest": "^1.2.0"
+	},
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"dependencies": {
+		"fs-extra": "^11.2.0",
+		"inquirer": "^9.2.15",
+		"nodemon": "^3.1.0",
+		"ollama-node": "^0.1.27"
+	}
 }
