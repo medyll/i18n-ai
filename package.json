@@ -1,6 +1,6 @@
 {
 	"name": "@medyll/i18n-ai",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"main": "./dist/i18n-ai.js",
 	"description": "i18n tool using ai : translate your project lang files with ai",
 	"bin": {
