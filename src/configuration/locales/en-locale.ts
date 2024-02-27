@@ -1,1 +1,1 @@
-export en =  {}; ;
+export const en =  {}; ;
