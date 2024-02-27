@@ -1,9 +1,10 @@
 {
 	"name": "@medyll/i18n-ai",
 	"version": "0.0.2",
-	"main": "./dist/index.js",
+	"main": "./dist/i18n-ai.js",
 	"description": "i18n tool using ai : translate your project lang files with ai",
 	"bin": {
+		"i18n-ai": "./dist/index.js",
 		"@medyll/i18n-ai": "./dist/index.js"
 	},
 	"scope": "@medyll",
@@ -20,7 +21,9 @@
 		"format": "prettier --write .",
 		"prepare": "husky install",
 		"commit": "node scripts/commit.js",
-		"release": "standard-version"
+		"release": "standard-version",
+		"i18nai": "i18nai",
+		"i18nai:watch": "i18nai"
 	},
 	"exports": {
 		".": {
@@ -61,6 +64,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"chokidar": "^3.6.0",
 		"fs-extra": "^11.2.0",
 		"inquirer": "^9.2.15",
 		"nodemon": "^3.1.0",
