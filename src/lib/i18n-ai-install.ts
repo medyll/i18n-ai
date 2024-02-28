@@ -36,7 +36,7 @@ const questions = [
 	{
 		type: 'list',
 		name: 'fileType',
-		message: 'What type of file do you want to use for i18 declarative files?',
+		message: 'What type of file do you want to use for i18n-ai declarative files?',
 		choices: ['typescript', 'javascript', 'json'],
 		default: 'typescript'
 	},
@@ -68,8 +68,8 @@ const questions = [
 ];
 
 async function i18nAi() {
-	process.cwd;
-	console.log('Welcome to i18n-ai');
+	process.cwd();
+	console.log('Welcome to i18n-ai installation');
 	const answers: Record<string, any> = {};
 
 	for (const question of questions) {
@@ -95,11 +95,14 @@ async function i18nAi() {
 		answers[question.name] = answer[question.name];
 	}
 
-	console.log(answers);
 	createConfigFile(answers);
 	addPackageJsonKeys();
 
 	const directories = answers['i18nLocalesDirectory'].split(',');
+
+	// test si exist tsconfig.json, pour connaitre le type du projet //
+	const isTsProject = fs.existsSync('tsconfig.json');
+	const indexExtension = isTsProject ? 'ts' : 'js';
 
 	directories?.forEach(async (directory: string) => {
 		if (!directory || directory === '') return;
@@ -107,20 +110,29 @@ async function i18nAi() {
 			.mkdir(directory, { recursive: true })
 			.then(() => {
 				console.log(`${directory} created`);
+				// create index.ts for language files
+				const indexFile = `${directory}/index.${indexExtension}`;
+				fs.ensureFileSync(indexFile);
+				const size = fs.stat(indexFile);
 				// create language files of fileType
 				answers['languages'].forEach(async (language: string) => {
 					const isoName = language.toLowerCase().slice(0, 2);
 					const extension = extensions[answers['fileType']];
-					const lfile = `${directory}/${isoName}-locale.${extension}`;
-					await fs.ensureFileSync(lfile);
+
+					const lfile = `${isoName}.${extension}`;
+
+					const lfilePath = `${directory}/${lfile}`;
+					await fs.ensureFileSync(lfilePath);
 					///if the file is empty
-					const size = await fs.stat(lfile);
+					const size = await fs.stat(lfilePath);
 					if (size.size === 0) {
 						const asConst = extension === 'json' ? 'as const' : '';
 						const content = `export const ${isoName} =  {};`;
 
-						fs.writeFile(lfile, `${content} ${asConst};`);
+						fs.writeFile(lfilePath, `${content} ${asConst};`);
 					}
+					// update indexFile
+					fs.appendFile(indexFile, `export {${isoName}} from './${lfile}';\n`);
 				});
 			})
 			.catch((err) => {
@@ -136,15 +148,16 @@ async function i18nAi() {
  * Creates a config file.
  */
 function createConfigFile(answers: Answers) {
-	const content = `import { i18naiConfig } from '@medyll/i18n-ai';\rexport default i18naiConfig (${JSON.stringify(answers, null, '  ')});`;
+	const content = `import { i18naiConfig } from '@medyll/i18n-ai';
+	export default i18naiConfig (${JSON.stringify(answers, null, '  ')});`;
 
 	fs.ensureFile(jsConfigFile)
 		.then(() => {
-			console.log(`${jsConfigFile} created`);
+			console.log(`configuration file ${jsConfigFile} created`);
 			return fs.writeFile(jsConfigFile, content);
 		})
 		.then(() => {
-			console.log(`${jsConfigFile} written to`);
+			// console.log(`${jsConfigFile} written to`);
 		})
 		.catch((err) => {
 			console.error(err);

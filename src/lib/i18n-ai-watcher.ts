@@ -1,13 +1,11 @@
-/**
-use nodemon to watch the i18n files and update the AI model.
-directories to watch are in ./i18n-ai.config.js
- */
+#!/usr/bin/env  node
 import chokidar from 'chokidar';
 import path from 'path';
-import { i18nConfig } from '../../i18n-ai.config.js';
+// import { i18nConfig } from '../../i18n-ai.config.js';
 
-function watch() {
-	const watcher = chokidar.watch(path.resolve(__dirname, i18nConfig.i18nLocalesDirectory), {
+export function watch() {
+	console.log('watching');
+	const watcher = chokidar.watch('./src/configuration/locales', {
 		persistent: true
 	});
 

@@ -2,6 +2,7 @@
 export { i18nAi } from './i18n-ai.js';
 import { fileURLToPath } from 'url';
 import { resolve } from 'path';
+//import { watch } from './i18n-ai-watcher.js';
 
 const command = process.argv[2];
 
@@ -11,7 +12,8 @@ if (resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
 		case 'install':
 			import('./i18n-ai-install.js');
 			break;
-		case 'uninstall':
+		case '--watch':
+			//watch();
 			break;
 		case 'update':
 			break;

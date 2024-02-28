@@ -22,7 +22,7 @@
 		"prepare": "husky install",
 		"commit": "node scripts/commit.js",
 		"release": "standard-version",
-		"i18nai": "i18nai",
+		"i18nai": "i18n-ai",
 		"i18nai:watch": "i18nai"
 	},
 	"exports": {
@@ -64,9 +64,12 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"@medyll/i18n-ai": "file:",
 		"chokidar": "^3.6.0",
 		"fs-extra": "^11.2.0",
 		"inquirer": "^9.2.15",
+		"inquirer-search-checkbox": "^1.0.0",
+		"inquirer-search-list": "^1.2.6",
 		"nodemon": "^3.1.0",
 		"ollama": "^0.4.8",
 		"standard-version": "^9.5.0"
